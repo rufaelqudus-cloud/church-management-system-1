@@ -1,5 +1,6 @@
-const SCRIPT_URL = process.env.SCRIPT_URL;
-const API_SECRET = process.env.API_SECRET;
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_T8rt4K-fTe78YTCvom3hY27utazr4yffz0_s-HPUlyCft2NaxPHeRgWO1UEkODAbMQ/exec";
+const API_SECRET = "bvc4dItgJSS2FttZrHVAYK214N5OqtReN5vje5SSDmUQDIft";
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');

@@ -1,0 +1,577 @@
+{
+  "results": [
+    {
+      "suite": "Auth",
+      "test": "Login with valid credentials",
+      "status": "PASS",
+      "ms": 3672,
+      "detail": "role=Super Admin"
+    },
+    {
+      "suite": "Auth",
+      "test": "Login rejected with wrong password",
+      "status": "PASS",
+      "ms": 4170,
+      "detail": ""
+    },
+    {
+      "suite": "Auth",
+      "test": "Login rejected with empty credentials",
+      "status": "PASS",
+      "ms": 3619,
+      "detail": ""
+    },
+    {
+      "suite": "Backup",
+      "test": "Create backup before test",
+      "status": "PASS",
+      "ms": 45010,
+      "detail": "backup URL received"
+    },
+    {
+      "suite": "Fee",
+      "test": "Fee history has both explicit entries",
+      "status": "PASS",
+      "ms": 2838,
+      "detail": "entries=2 current=€15/month"
+    },
+    {
+      "suite": "Fee",
+      "test": "Pre-2026 baseline entry present (€5/month)",
+      "status": "PASS",
+      "ms": 2838,
+      "detail": "date=2015-01-01"
+    },
+    {
+      "suite": "Fee",
+      "test": "2026 fee entry present (€15/month)",
+      "status": "PASS",
+      "ms": 2838,
+      "detail": "date=2026-01-01"
+    },
+    {
+      "suite": "Fee",
+      "test": "Current fee is €15/month (€180/year)",
+      "status": "PASS",
+      "ms": 2838,
+      "detail": "actual=€15/month"
+    },
+    {
+      "suite": "FeeScenario",
+      "test": "2017-2020 = €240 (4×€60)",
+      "status": "PASS",
+      "ms": 2783,
+      "detail": "years: 2017:€60, 2018:€60, 2019:€60, 2020:€60"
+    },
+    {
+      "suite": "FeeScenario",
+      "test": "2021-2022 = €120 (2×€60)",
+      "status": "PASS",
+      "ms": 3952,
+      "detail": "years: 2021:€60, 2022:€60"
+    },
+    {
+      "suite": "FeeScenario",
+      "test": "2023-2026 = €360 (3×€60 + 1×€180)",
+      "status": "PASS",
+      "ms": 3266,
+      "detail": "years: 2023:€60, 2024:€60, 2025:€60, 2026:€180"
+    },
+    {
+      "suite": "FeeScenario",
+      "test": "2024-2026 = €300 (2×€60 + 1×€180)",
+      "status": "PASS",
+      "ms": 2537,
+      "detail": "years: 2024:€60, 2025:€60, 2026:€180"
+    },
+    {
+      "suite": "FeeScenario",
+      "test": "2026 only = €180 (1×€180)",
+      "status": "PASS",
+      "ms": 3118,
+      "detail": "years: 2026:€180"
+    },
+    {
+      "suite": "AddMember",
+      "test": "Add TEST Member One",
+      "status": "FAIL",
+      "ms": 6519,
+      "detail": "This phone number is already registered to another member.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "AddMember",
+      "test": "Add TEST Member Two",
+      "status": "FAIL",
+      "ms": 3436,
+      "detail": "This phone number is already registered to another member.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "AddMember",
+      "test": "Add TEST Member Three",
+      "status": "FAIL",
+      "ms": 3687,
+      "detail": "This phone number is already registered to another member.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "AddMember",
+      "test": "Duplicate member blocked (error)",
+      "status": "PASS",
+      "ms": 4573,
+      "detail": ""
+    },
+    {
+      "suite": "AddMember",
+      "test": "Invalid phone rejected",
+      "status": "PASS",
+      "ms": 3725,
+      "detail": "Please enter a valid German phone number."
+    },
+    {
+      "suite": "AddMember",
+      "test": "Future birth date rejected",
+      "status": "PASS",
+      "ms": 15023,
+      "detail": "Birth Date cannot be in the future."
+    },
+    {
+      "suite": "Search",
+      "test": "Find member by ID",
+      "status": "FAIL",
+      "ms": 1618,
+      "detail": "Not in list",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Search",
+      "test": "Find member by phone",
+      "status": "PASS",
+      "ms": 1618,
+      "detail": ""
+    },
+    {
+      "suite": "Search",
+      "test": "Find member by name",
+      "status": "PASS",
+      "ms": 1618,
+      "detail": ""
+    },
+    {
+      "suite": "Search",
+      "test": "getMembers response",
+      "status": "PASS",
+      "ms": 1618,
+      "detail": "total=7 members"
+    },
+    {
+      "suite": "Preview",
+      "test": "Member One 2017-2020 preview",
+      "status": "PASS",
+      "ms": 2424,
+      "detail": "total=€240 coveredYears=2017-2020 savings=€0"
+    },
+    {
+      "suite": "Payment",
+      "test": "Member One: Pay 2017-2020",
+      "status": "FAIL",
+      "ms": 9885,
+      "detail": "Member ID or Member Name is required.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Payment",
+      "test": "Balance check after P1",
+      "status": "FAIL",
+      "ms": 1780,
+      "detail": "No member found by that name, Member ID, or phone number.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Payment",
+      "test": "Member One: Pay 2021-2022",
+      "status": "FAIL",
+      "ms": 5231,
+      "detail": "Member ID or Member Name is required.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Payment",
+      "test": "Member One: Pay 2023-2026",
+      "status": "FAIL",
+      "ms": 6243,
+      "detail": "Member ID or Member Name is required.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Payment",
+      "test": "Member One final balance",
+      "status": "FAIL",
+      "ms": 1895,
+      "detail": "No member found by that name, Member ID, or phone number.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Payment",
+      "test": "Member Two: Pay 2024-2026",
+      "status": "FAIL",
+      "ms": 3482,
+      "detail": "Member ID or Member Name is required.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Payment",
+      "test": "Member Two balance check",
+      "status": "FAIL",
+      "ms": 1842,
+      "detail": "No member found by that name, Member ID, or phone number.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Payment",
+      "test": "Member Three balance",
+      "status": "FAIL",
+      "ms": 1990,
+      "detail": "No member found by that name, Member ID, or phone number.",
+      "expected": "",
+      "actual": ""
+    },
+    {
+      "suite": "Protection",
+      "test": "Duplicate payment for paid year rejected",
+      "status": "PASS",
+      "ms": 5008,
+      "detail": "Member ID or Member Name is required."
+    },
+    {
+      "suite": "Protection",
+      "test": "Zero amount payment rejected",
+      "status": "PASS",
+      "ms": 4929,
+      "detail": "Member ID or Member Name is required."
+    },
+    {
+      "suite": "Protection",
+      "test": "Payment without member rejected",
+      "status": "PASS",
+      "ms": 7847,
+      "detail": "Member ID or Member Name is required."
+    },
+    {
+      "suite": "Protection",
+      "test": "Double-click: both blocked (year already paid)",
+      "status": "PASS",
+      "ms": 9636,
+      "detail": ""
+    },
+    {
+      "suite": "Transactions",
+      "test": "Get transaction categories",
+      "status": "PASS",
+      "ms": 4505,
+      "detail": "income=0 expense=0 raw_keys="
+    },
+    {
+      "suite": "Transactions",
+      "test": "Add income €500 (Sunday offering)",
+      "status": "PASS",
+      "ms": 6587,
+      "detail": "id=INC-20260628174325340562"
+    },
+    {
+      "suite": "Transactions",
+      "test": "Add income €250 (Special donation)",
+      "status": "PASS",
+      "ms": 10772,
+      "detail": "id=INC-20260628174332499869"
+    },
+    {
+      "suite": "Transactions",
+      "test": "Add income €150 (Weekly collection)",
+      "status": "PASS",
+      "ms": 10390,
+      "detail": "id=INC-20260628174344948059"
+    },
+    {
+      "suite": "Transactions",
+      "test": "Add expense €800 (Rent/Hall cost)",
+      "status": "PASS",
+      "ms": 7947,
+      "detail": "id=EXP-20260628174354215880"
+    },
+    {
+      "suite": "Transactions",
+      "test": "Add expense €120 (Electricity/Utility)",
+      "status": "PASS",
+      "ms": 7312,
+      "detail": "id=EXP-20260628174401103833"
+    },
+    {
+      "suite": "Transactions",
+      "test": "Add expense €45 (Office materials)",
+      "status": "PASS",
+      "ms": 7723,
+      "detail": "id=EXP-20260628174409179403"
+    },
+    {
+      "suite": "Transactions",
+      "test": "Zero amount income rejected",
+      "status": "PASS",
+      "ms": 6894,
+      "detail": "Amount must be greater than 0."
+    },
+    {
+      "suite": "Transactions",
+      "test": "Missing category rejected",
+      "status": "PASS",
+      "ms": 7552,
+      "detail": "Transaction category not found."
+    },
+    {
+      "suite": "Transactions",
+      "test": "Empty date rejected",
+      "status": "PASS",
+      "ms": 10392,
+      "detail": "Transaction date is required."
+    },
+    {
+      "suite": "Transactions",
+      "test": "Missing date rejected",
+      "status": "PASS",
+      "ms": 6348,
+      "detail": "Transaction date is required."
+    },
+    {
+      "suite": "Transactions",
+      "test": "Invalid date rejected",
+      "status": "PASS",
+      "ms": 7570,
+      "detail": "Invalid transaction date."
+    },
+    {
+      "suite": "Dashboard",
+      "test": "Active members ≥ 3",
+      "status": "PASS",
+      "ms": 2592,
+      "detail": "actual=6"
+    },
+    {
+      "suite": "Dashboard",
+      "test": "Income includes test payments",
+      "status": "PASS",
+      "ms": 2592,
+      "detail": "total=€22195"
+    },
+    {
+      "suite": "Dashboard",
+      "test": "Dashboard loads without error",
+      "status": "PASS",
+      "ms": 2592,
+      "detail": "income=€22195 expenses=€21285 net=€910"
+    },
+    {
+      "suite": "Dashboard",
+      "test": "getDashboardSummaryCached returns fromCache field",
+      "status": "PASS",
+      "ms": 2592,
+      "detail": "fromCache=true"
+    },
+    {
+      "suite": "Benchmark",
+      "test": "First call (cached)",
+      "status": "PASS",
+      "ms": 1469,
+      "detail": "1469ms"
+    },
+    {
+      "suite": "Benchmark",
+      "test": "Second call (cached)",
+      "status": "PASS",
+      "ms": 2399,
+      "detail": "2399ms"
+    },
+    {
+      "suite": "Benchmark",
+      "test": "Cached totals match live totals",
+      "status": "PASS",
+      "ms": 2399,
+      "detail": "income 22195==22195 expenses 21285==21285"
+    },
+    {
+      "suite": "Benchmark",
+      "test": "Second call completed",
+      "status": "PASS",
+      "ms": 2399,
+      "detail": "both calls fast (1469ms, 2399ms)"
+    },
+    {
+      "suite": "Unpaid",
+      "test": "All 3 test members fully paid — not in unpaid list",
+      "status": "PASS",
+      "ms": 4607,
+      "detail": ""
+    },
+    {
+      "suite": "Unpaid",
+      "test": "getUnpaidMembersForDashboard responds",
+      "status": "PASS",
+      "ms": 4607,
+      "detail": "total unpaid=3"
+    },
+    {
+      "suite": "History",
+      "test": "searchHistory by name returns results",
+      "status": "PASS",
+      "ms": 4840,
+      "detail": "rows=0 raw_type=object"
+    },
+    {
+      "suite": "Receipt",
+      "test": "No payment IDs to test receipt with",
+      "status": "WARN",
+      "ms": 0,
+      "detail": ""
+    },
+    {
+      "suite": "ReceiptStorage",
+      "test": "verifyReceiptStorage returns report",
+      "status": "PASS",
+      "ms": 12031,
+      "detail": "members=14 years=14 pdfs=14 legacy=128"
+    },
+    {
+      "suite": "ReceiptStorage",
+      "test": "Member folder created for test receipt",
+      "status": "PASS",
+      "ms": 12031,
+      "detail": "14 member folder(s)"
+    },
+    {
+      "suite": "ReceiptStorage",
+      "test": "Year folder 2026 exists",
+      "status": "PASS",
+      "ms": 12031,
+      "detail": ""
+    },
+    {
+      "suite": "ReceiptStorage",
+      "test": "No duplicate folders",
+      "status": "PASS",
+      "ms": 12031,
+      "detail": ""
+    },
+    {
+      "suite": "Edit",
+      "test": "Setup: add edit test member",
+      "status": "PASS",
+      "ms": 4848,
+      "detail": "id=MEM-20260628174520683621"
+    },
+    {
+      "suite": "Edit",
+      "test": "Setup: add edit test payment",
+      "status": "PASS",
+      "ms": 9173,
+      "detail": "txId=TXN-20260628174537433977"
+    },
+    {
+      "suite": "Edit",
+      "test": "getRowForEditByTxId returns row",
+      "status": "PASS",
+      "ms": 3301,
+      "detail": "row=5 sheet=ክፍሊት ኣባልነት"
+    },
+    {
+      "suite": "Edit",
+      "test": "updateSelectedRow succeeds",
+      "status": "PASS",
+      "ms": 2981,
+      "detail": ""
+    },
+    {
+      "suite": "Handover",
+      "test": "getAdminHandoverDashboard loads",
+      "status": "PASS",
+      "ms": 9115,
+      "detail": "cashReceived=€undefined membershipApplied=€undefined"
+    },
+    {
+      "suite": "Health",
+      "test": "Data integrity check — no issues",
+      "status": "PASS",
+      "ms": 9543,
+      "detail": ""
+    },
+    {
+      "suite": "AuditArchive",
+      "test": "Dry run detects archivable rows",
+      "status": "PASS",
+      "ms": 2616,
+      "detail": "rows=324 sheet=Audit Log 2026 range=2026-06-27 – 2026-06-28"
+    },
+    {
+      "suite": "AuditArchive",
+      "test": "Dry run returns required fields",
+      "status": "PASS",
+      "ms": 2616,
+      "detail": "dryRun=true archiveSheetName=Audit Log 2026 invalidDateRows=0"
+    },
+    {
+      "suite": "AuditArchive",
+      "test": "Dry run flag is true",
+      "status": "PASS",
+      "ms": 2616,
+      "detail": ""
+    },
+    {
+      "suite": "AuditArchive",
+      "test": "Dry run with no-match date returns 0 rows",
+      "status": "PASS",
+      "ms": 3299,
+      "detail": ""
+    },
+    {
+      "suite": "AuditArchive",
+      "test": "searchAuditLogs active scope works",
+      "status": "PASS",
+      "ms": 3404,
+      "detail": "total=324 scope=active"
+    },
+    {
+      "suite": "AuditArchive",
+      "test": "scope=both includes active rows",
+      "status": "PASS",
+      "ms": 3535,
+      "detail": "both=324 active=324"
+    },
+    {
+      "suite": "AuditArchive",
+      "test": "listAuditArchiveSheets returns array",
+      "status": "PASS",
+      "ms": 2584,
+      "detail": "count=0"
+    }
+  ],
+  "testMemberIds": {},
+  "paymentIds": [],
+  "churchTxnIds": [
+    "INC-20260628174325340562",
+    "INC-20260628174332499869",
+    "INC-20260628174344948059",
+    "EXP-20260628174354215880",
+    "EXP-20260628174401103833",
+    "EXP-20260628174409179403"
+  ]
+}

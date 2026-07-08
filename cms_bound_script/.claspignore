@@ -1,0 +1,15 @@
+**/**
+!Code.gs
+!AdminAuth.gs
+!AuditLog.gs
+!EditDelete.gs
+!FeeHistory.gs
+!FinancialIntegrity.gs
+!Handovers.gs
+!MemberCache.gs
+!Payments.gs
+!PdfGeneration.gs
+!SheetSetup.gs
+!ReceiptTemplate.html
+!Sidebar.html
+!appsscript.json

@@ -316,9 +316,6 @@ function addChurchManagementMenu_() {
     .addItem("Apply Data Protection", "applyCmsProtections")
     .addItem("Allow Manual Editing for 15 Minutes", "temporarilyAllowManualEdits")
     .addItem("Lock Manual Editing Again", "blockManualEdits")
-    .addSeparator()
-    .addItem("Run Fast System Tests", "runFastCmsTests")
-    .addItem("Run All System Tests", "runAllCmsTests")
     .addToUi();
 }
 

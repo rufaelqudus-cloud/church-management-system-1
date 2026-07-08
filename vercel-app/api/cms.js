@@ -1,5 +1,5 @@
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_T8rt4K-fTe78YTCvom3hY27utazr4yffz0_s-HPUlyCft2NaxPHeRgWO1UEkODAbMQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAUdCFlQmyqPXHhzsFIbU2RRuo3C440d8Igt8xV8NA91DnNc66_6xyU7hbI0GUCpbEvQ/exec";
 const API_SECRET = "bvc4dItgJSS2FttZrHVAYK214N5OqtReN5vje5SSDmUQDIft";
 
 export default async function handler(req, res) {

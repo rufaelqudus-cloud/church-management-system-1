@@ -61,7 +61,7 @@ const REMINDER_LOG_HEADERS = ["Timestamp", "Member ID", "Member Name", "Phone", 
 const WRITE_LOCK_WAIT_MS = 12000;
 const WRITE_LOCK_BUSY_MESSAGE = "The system is still finishing another save. Please wait 10-20 seconds and try again.";
 const DEFAULT_MONTHLY_FEE = 5;
-const MEMBERSHIP_FEE_2026_MONTHLY = 15;
+const MEMBERSHIP_FEE_2026_MONTHLY = 5;
 const MEMBERSHIP_FEE_2026_EFFECTIVE_DATE = new Date(2026, 0, 1);
 const ROLES = {
   superAdmin: "Super Admin",

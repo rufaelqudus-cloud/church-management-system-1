@@ -361,7 +361,7 @@ function ensureFeeHistoryTable_() {
     return date && date.getFullYear() === 2026 && date.getMonth() === 0 && Number(r[2]) === MEMBERSHIP_FEE_2026_MONTHLY;
   });
   if (!has2026Rule) {
-    sh.appendRow(["", "", "", "", "", MEMBERSHIP_FEE_2026_EFFECTIVE_DATE, DEFAULT_MONTHLY_FEE, MEMBERSHIP_FEE_2026_MONTHLY, "System", "Membership fee from 2026 onward: €180/year"]);
+    sh.appendRow(["", "", "", "", "", MEMBERSHIP_FEE_2026_EFFECTIVE_DATE, DEFAULT_MONTHLY_FEE, MEMBERSHIP_FEE_2026_MONTHLY, "System", "Membership fee for 2026: €60/year"]);
   }
   refreshedValues.forEach((row, index) => {
     const rowNumber = index + 11;

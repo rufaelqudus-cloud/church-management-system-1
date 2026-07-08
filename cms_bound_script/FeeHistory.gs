@@ -1,5 +1,5 @@
 //   • 2015-01-01 → €5/month  (pre-2026 baseline for all historical years)
-//   • 2026-01-01 → €15/month (current fee)
+//   • 2026-01-01 → €5/month  (current fee)
 // Only callable by Super Admins. Safe to call repeatedly — idempotent.
 function restoreFeeHistoryBaseline(admin) {
   requirePermission_(clean_(admin), "manageSettings");
@@ -14,10 +14,10 @@ function restoreFeeHistoryBaseline(admin) {
   // Write the two canonical entries
   sh.getRange("F11:J12").setValues([
     [new Date(2015, 0, 1), 0, DEFAULT_MONTHLY_FEE, "System", "Historical baseline: €5/month (€60/year) — all years up to 2025"],
-    [MEMBERSHIP_FEE_2026_EFFECTIVE_DATE, DEFAULT_MONTHLY_FEE, MEMBERSHIP_FEE_2026_MONTHLY, "System", "Fee increase from 2026 onward: €15/month (€180/year)"]
+    [MEMBERSHIP_FEE_2026_EFFECTIVE_DATE, DEFAULT_MONTHLY_FEE, MEMBERSHIP_FEE_2026_MONTHLY, "System", "Membership fee for 2026: €5/month (€60/year)"]
   ]);
   logFeeChangeAudit_(admin, 2015, 0, DEFAULT_MONTHLY_FEE, "Restored historical baseline: €5/month (€60/year) pre-2026");
-  logFeeChangeAudit_(admin, 2026, DEFAULT_MONTHLY_FEE, MEMBERSHIP_FEE_2026_MONTHLY, "Restored 2026 fee: €15/month (€180/year)");
+  logFeeChangeAudit_(admin, 2026, DEFAULT_MONTHLY_FEE, MEMBERSHIP_FEE_2026_MONTHLY, "Restored 2026 fee: €5/month (€60/year)");
   invalidateFastCaches_([SHEETS.config]);
   clearCachedMembershipFundingIndex_();
   clearDashboardSummaryCache_();

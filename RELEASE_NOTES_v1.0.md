@@ -3,7 +3,7 @@
 **Release date:** 2026-06-27
 **Deployment version constant:** `@232`
 **Web App URL:** https://script.google.com/macros/s/AKfycbygcn_QN-VmeoXsxi0_VxLpwH8lY1HKbh-uBy6u_oS3FgqFGjcmF6AhrLeNnUfqYDwd/exec
-**Spreadsheet:** https://docs.google.com/spreadsheets/d/1CeQauN8c4jg3nU2W62mwRFdAjf_938RLoDfLXSM2MfA/edit
+**Spreadsheet:** https://docs.google.com/spreadsheets/d/12x32vf_Wo3INDKbjjYAwAGZesrEpeZVOGRiwYmJy6-8/edit
 
 ---
 
@@ -112,7 +112,7 @@ Run via Apps Script editor: `runAllCmsTests()`
 | Script ID | `19K32b86oqjLGs1uVXTRCUXc8-036aE2IsO7up_VKZayXQnnByVSEXNAo` |
 | Deployment ID | `AKfycbygcn_QN-VmeoXsxi0_VxLpwH8lY1HKbh-uBy6u_oS3FgqFGjcmF6AhrLeNnUfqYDwd` |
 | Web App URL | https://script.google.com/macros/s/AKfycbygcn_QN-VmeoXsxi0_VxLpwH8lY1HKbh-uBy6u_oS3FgqFGjcmF6AhrLeNnUfqYDwd/exec |
-| Spreadsheet ID | `1CeQauN8c4jg3nU2W62mwRFdAjf_938RLoDfLXSM2MfA` |
+| Spreadsheet ID | `12x32vf_Wo3INDKbjjYAwAGZesrEpeZVOGRiwYmJy6-8` |
 | Spreadsheet account | stmichaelwuppertal@gmail.com |
 | clasp push account | fre08gb@gmail.com |
 | Deployment version | `@232` |

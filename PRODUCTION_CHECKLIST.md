@@ -6,7 +6,7 @@
 
 Run before every deployment and at end of each month.
 
-1. Open the spreadsheet: https://docs.google.com/spreadsheets/d/1CeQauN8c4jg3nU2W62mwRFdAjf_938RLoDfLXSM2MfA/edit
+1. Open the spreadsheet: https://docs.google.com/spreadsheets/d/12x32vf_Wo3INDKbjjYAwAGZesrEpeZVOGRiwYmJy6-8/edit
 2. File → Download → Microsoft Excel (.xlsx) — save with date in filename, e.g. `cms_backup_2026-06-27.xlsx`
 3. Also: File → Make a copy → name it `CMS Backup YYYY-MM-DD` — keeps it in Google Drive with full formula fidelity
 4. Store both copies in a secure location (e.g. church admin Google Drive folder, not shared publicly)

@@ -4,7 +4,7 @@ This guide explains how church administrators can restore the Church Management 
 
 ## Current Production Details
 
-- Production spreadsheet ID: `1CeQauN8c4jg3nU2W62mwRFdAjf_938RLoDfLXSM2MfA`
+- Production spreadsheet ID: `12x32vf_Wo3INDKbjjYAwAGZesrEpeZVOGRiwYmJy6-8`
 - Backup folder: `Church Management System Backups`
 - Backup folder URL: `https://drive.google.com/drive/folders/1sRlivEkV2pzF5ouuwYICWiJNfDO01BAY`
 - Current Apps Script web app endpoint:
@@ -91,7 +91,7 @@ Use this when the original production spreadsheet is gone, inaccessible, or too 
 In the current code this value is:
 
 ```javascript
-const CMS_SPREADSHEET_ID = "1CeQauN8c4jg3nU2W62mwRFdAjf_938RLoDfLXSM2MfA";
+const CMS_SPREADSHEET_ID = "12x32vf_Wo3INDKbjjYAwAGZesrEpeZVOGRiwYmJy6-8";
 ```
 
 Replace it with the restored spreadsheet ID.

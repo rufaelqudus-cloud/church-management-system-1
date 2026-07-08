@@ -51,7 +51,7 @@ const MEMBERSHIP_FUNDING_ROWS_PER_CHUNK = 350;
 const CHURCH_NAME = "St.Rufael Church";
 const CHURCH_SYSTEM_NAME = CHURCH_NAME + " Wuppertal Management System";
 const CHURCH_LOGO_URL = "https://mobilefallback.vercel.app/icons/icon-192.png?v=73";
-const CMS_SPREADSHEET_ID = "1CeQauN8c4jg3nU2W62mwRFdAjf_938RLoDfLXSM2MfA";
+const CMS_SPREADSHEET_ID = "12x32vf_Wo3INDKbjjYAwAGZesrEpeZVOGRiwYmJy6-8";
 const CMS_DEPLOYMENT_VERSION = "@232";
 const PDF_BIBLE_VERSE_TI = "ኣብ ቤተይ ምግቢ ኪኸውንሲ፣ ዕሽር ዘበለ ዅሉ ናብ ቤት መዝገብ ኣምጽእዎ፣ ሽዑ መሳዅቲ ሰማይ እንተ ዘይከፊተልኩም፣ በረኸት ድማ ብዘይ ልክዕ እንተ ዘየፍሲሰልኩም፣ በዚ ተዐዘቡኒ፣ ይብል እግዚኣብሄር ጐይታ ሰራዊት።";
 const PDF_BIBLE_REFERENCE_TI = "ሚልክያስ 3፣10";

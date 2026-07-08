@@ -1081,17 +1081,14 @@ function safeCsvName_(name) {
 }
 
 function openSidebar() {
+  // Sidebar startup must only render UI — no sheet writes, no protection
+  // changes. Header/credential maintenance runs via onOpen() instead.
   return timed_("openSidebar", () => {
-    ensureAdminCredentials_();
-    normalizePaymentSheetHeaders_();
-    normalizeYearlyMembershipSheetViews_();
-    normalizeExpenseSheetHeaders_();
     SpreadsheetApp.getUi().showSidebar(sidebarHtml_("member"));
   });
 }
 
 function openAdminManagement() {
-  ensureAdminCredentials_();
   SpreadsheetApp.getUi().showSidebar(sidebarHtml_("tools"));
 }
 

@@ -181,6 +181,7 @@
         <label data-i18n="notes">መዘክር</label><textarea id="mNotes"></textarea>
         <label data-i18n="addedBy">ዝወሰኾ</label><input id="mAddedBy" readonly>
         <button id="mBtn" onclick="addMember()" data-i18n="addMemberBtn">ኣባል ወስኽ</button><div id="mMsg" class="msg"></div>
+        <script>document.getElementById('mBtn').addEventListener('click', function(ev){ try { alert('Backup handler fired. typeof addMember=' + typeof addMember); if (typeof addMember === 'function') addMember(); } catch(e) { alert('Backup handler error: ' + (e && e.message ? e.message : e)); } });</script>
         </div>
 
         <div id="payment" class="member-payment" style="display:none">
@@ -426,6 +427,8 @@
   </div>
 
 <script>
+window.onerror = function(msg, src, line, col, err) { alert('PAGE ERROR: ' + msg + ' (line ' + line + ':' + col + ')'); return false; };
+window.addEventListener('unhandledrejection', function(ev) { alert('UNHANDLED PROMISE REJECTION: ' + (ev.reason && ev.reason.message ? ev.reason.message : ev.reason)); });
 const IS_VERCEL_APP = true;
 const _CMS_API = '/api/cms';
 

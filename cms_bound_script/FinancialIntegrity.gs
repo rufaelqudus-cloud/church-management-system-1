@@ -572,7 +572,7 @@ function exportFinancialIntegrityReportAsPdf(admin) {
     "tr:nth-child(even) td{background:#f9f9f9}" +
     ".pass{color:#27ae60;font-weight:bold}.footer{margin-top:16px;font-size:7pt;color:#999}" +
     "</style></head><body>" +
-    "<h1>St.Rufael Church Wuppertal &mdash; Financial Integrity Report</h1>" +
+    "<h1>St.Rufael Church Münster &mdash; Financial Integrity Report</h1>" +
     "<p class='meta'>Generated " + genDate + " by " + clean_(admin) + "</p>" +
     "<div class='status' style='background:" + statusColor + "'>" + report.status + "</div>" +
     summaryBlock +
@@ -582,7 +582,7 @@ function exportFinancialIntegrityReportAsPdf(admin) {
         "<table><thead><tr><th>Severity</th><th>Check</th><th>Member ID</th><th>Name</th>" +
         "<th>TX/Receipt ID</th><th>Expected</th><th>Actual</th><th>Diff</th><th>Source</th><th>Probable Cause</th></tr></thead>" +
         "<tbody>" + trs + "</tbody></table>") +
-    "<div class='footer'>St.Rufael Eritrean Orthodox Church &middot; Wuppertal &middot; Financial Integrity Report</div>" +
+    "<div class='footer'>St.Rufael Eritrean Orthodox Church &middot; Münster &middot; Financial Integrity Report</div>" +
     "</body></html>";
 
   var pdfBlob = Utilities.newBlob(html, "text/html", fileName.replace(/\.pdf$/, ".html")).getAs(MimeType.PDF);

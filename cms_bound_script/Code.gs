@@ -49,7 +49,7 @@ const MEMBERSHIP_FUNDING_DATA_CHUNK_PREFIX = "CMS_FUNDING_DATA_V2_";
 const MEMBERSHIP_FUNDING_MEMBERS_PER_CHUNK = 250;
 const MEMBERSHIP_FUNDING_ROWS_PER_CHUNK = 350;
 const CHURCH_NAME = "St.Rufael Church";
-const CHURCH_SYSTEM_NAME = CHURCH_NAME + " Wuppertal Management System";
+const CHURCH_SYSTEM_NAME = CHURCH_NAME + " Münster Management System";
 const CHURCH_LOGO_URL = "https://mobilefallback.vercel.app/icons/icon-192.png?v=73";
 const CMS_SPREADSHEET_ID = "12x32vf_Wo3INDKbjjYAwAGZesrEpeZVOGRiwYmJy6-8";
 const CMS_DEPLOYMENT_VERSION = "@232";
@@ -2774,12 +2774,12 @@ function buildReminderMessage_(name, yearsUnpaid, balanceDue, gender) {
   const g = clean_(gender).toLowerCase();
   const VERSE_1 = "“ካብ ምቕባልሲ ምሃብ ዝያዳ ይባርኽ።”\n— ግብሪ ሃዋርያት 20:35";
   const VERSE_2 = "“ብጐይታ ዅሉ ሳዕ ተሐጐሱ፡ ደጊመ፤ ተሐጐሱ፡ እብል ኣሎኹ”\nፊልጲ 4:4";
-  const FOOTER = "⛪ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ቩፐርታል";
+  const FOOTER = "⛪ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ሙንስተር";
   if (g === "female") {
     return [
       "ሰላም “" + n + "”,",
       "",
-      "ካብ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ቩፐርታል ብፍቕሪ ሰላምታ ነቕርበልኪ።",
+      "ካብ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ሙንስተር ብፍቕሪ ሰላምታ ነቕርበልኪ።",
       "",
       "ብመዝገብና፣ ናይ " + yearsStr + " ኣባልነት ክፍሊትኪ (ጠቕላላ €" + amount + ") ገና ዘይተኸፍለ ከም ዘሎ ተራእዩ።",
       "",
@@ -2800,7 +2800,7 @@ function buildReminderMessage_(name, yearsUnpaid, balanceDue, gender) {
     return [
       "ሰላም “" + n + "”,",
       "",
-      "ካብ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ቩፐርታል ብፍቕሪ ሰላምታ ነቕርበልካ።",
+      "ካብ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ሙንስተር ብፍቕሪ ሰላምታ ነቕርበልካ።",
       "",
       "ብመዝገብና፣ ናይ " + yearsStr + " ኣባልነት ክፍሊትካ (ጠቕላላ €" + amount + ") ገና ዘይተኸፍለ ከም ዘሎ ተራእዩ።",
       "",
@@ -2821,7 +2821,7 @@ function buildReminderMessage_(name, yearsUnpaid, balanceDue, gender) {
   return [
     "ሰላም “" + n + "”,",
     "",
-    "ካብ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ቩፐርታል ብፍቕሪ ሰላምታ ነቕርበልኩም።",
+    "ካብ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ሙንስተር ብፍቕሪ ሰላምታ ነቕርበልኩም።",
     "",
     "ብመዝገብና፣ ናይ " + yearsStr + " ኣባልነት ክፍሊት (ጠቕላላ €" + amount + ") ገና ዘይተኸፍለ ከም ዘሎ ተራእዩ።",
     "",

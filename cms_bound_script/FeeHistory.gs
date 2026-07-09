@@ -112,14 +112,14 @@ function exportFeeHistoryAsPdf(admin) {
     "table{border-collapse:collapse;width:100%}th{background:#2c5f2e;color:white;padding:7px 10px;text-align:left;font-size:9pt}" +
     "td{padding:7px 10px;border-bottom:1px solid #ddd;font-size:9pt}tr:nth-child(even) td{background:#f5f5f5}" +
     ".footer{margin-top:20px;font-size:8pt;color:#999}</style></head><body>" +
-    "<h1>St.Rufael Church Wuppertal &mdash; Membership Fee History</h1>" +
+    "<h1>St.Rufael Church Münster &mdash; Membership Fee History</h1>" +
     "<p>Generated " + genDate + " by " + clean_(admin) +
     " &nbsp;&middot;&nbsp; Current fee: €" + Number(history.currentFee || 0).toFixed(2) +
     "/month (€" + (Number(history.currentFee || 0) * 12).toFixed(2) + "/year)</p>" +
     "<table><thead><tr><th>Effective Date</th><th>Monthly Fee</th><th>Yearly Fee</th>" +
     "<th>Previous Fee</th><th>Changed By</th><th>Reason</th></tr></thead>" +
     "<tbody>" + trs + "</tbody></table>" +
-    "<div class='footer'>St.Rufael Eritrean Orthodox Church &middot; Wuppertal &middot; Church Management System</div>" +
+    "<div class='footer'>St.Rufael Eritrean Orthodox Church &middot; Münster &middot; Church Management System</div>" +
     "</body></html>";
   const pdfBlob = Utilities.newBlob(html, "text/html", fileName.replace(/\.pdf$/, ".html")).getAs(MimeType.PDF);
   const folder = backupFolder_();

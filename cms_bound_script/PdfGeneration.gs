@@ -63,9 +63,9 @@ function appendStandardDocHeader_(body) {
   const logo = body.appendImage(churchLogoBlob_());
   logo.setWidth(78).setHeight(78);
   logo.getParent().asParagraph().setAlignment(DocumentApp.HorizontalAlignment.CENTER);
-  appendDocParagraph_(body, "ቤተ ክርስቲያን ኦርቶዶክስ ተዋሕዶ ኤርትራ ቅዱስ ሩፋኤል ቩፐርታል", 14, true, "#1a365d", DocumentApp.HorizontalAlignment.CENTER);
-  appendDocParagraph_(body, "Eritreisch-Orthodoxe Tewahedo Kirche St.Rufael Wuppertal", 12, true, "#1a365d", DocumentApp.HorizontalAlignment.CENTER);
-  appendDocParagraph_(body, "ቤት ጽሕፈት ምሕደራ ሰበካ • ቩፐርታል፥ ጀርመን", 9, false, "#4a5568", DocumentApp.HorizontalAlignment.CENTER);
+  appendDocParagraph_(body, "ቤተ ክርስቲያን ኦርቶዶክስ ተዋሕዶ ኤርትራ ቅዱስ ሩፋኤል ሙንስተር", 14, true, "#1a365d", DocumentApp.HorizontalAlignment.CENTER);
+  appendDocParagraph_(body, "Eritreisch-Orthodoxe Tewahedo Kirche St.Rufael Münster", 12, true, "#1a365d", DocumentApp.HorizontalAlignment.CENTER);
+  appendDocParagraph_(body, "ቤት ጽሕፈት ምሕደራ ሰበካ • ሙንስተር፥ ጀርመን", 9, false, "#4a5568", DocumentApp.HorizontalAlignment.CENTER);
   appendDocParagraph_(body, "ወግዓዊ ስርዓት ምሕደራ ቤተ ክርስቲያን (Offizielles Kirchenverwaltungssystem)", 9, true, "#2b6cb0", DocumentApp.HorizontalAlignment.CENTER);
   body.appendHorizontalRule();
 }
@@ -202,7 +202,7 @@ function buildStandardChurchPdfHtml_(doc) {
     ".signature-section{display:table;width:100%;table-layout:fixed;margin:36px 0 25px}.signature-box{display:table-cell;padding-right:18px}.signature-box div{border-top:1px solid #2d3748;padding-top:7px;font-size:9pt;color:#4a5568}",
     ".footer-section{border-top:1px solid #e2e8f0;padding-top:10px;text-align:center}.bible-verse{font-family:'Noto Serif Ethiopic',Georgia,'Times New Roman',serif;font-size:9pt;font-weight:700;color:#1a365d;margin:0 0 4px;line-height:1.45}.bible-reference{font-family:'Noto Serif Ethiopic',Georgia,serif;font-size:8pt;font-weight:700;color:#718096;text-transform:uppercase;letter-spacing:.3px;margin:0}.footer-note{font-family:Georgia,'Times New Roman',serif;font-size:8pt;color:#718096;font-style:italic;text-align:center;margin-top:12px;padding-top:8px;border-top:1px solid #e2e8f0}",
     "</style></head><body>",
-    "<table class=\"header-table\"><tr><td class=\"logo-cell\"><img src=\"" + churchLogoDataUri_() + "\" class=\"logo-img\" alt=\"Church Logo\"></td><td class=\"church-info-cell\"><div class=\"church-name\">ቤተ ክርስቲያን ኦርቶዶክስ ተዋሕዶ ኤርትራ ቅዱስ ሩፋኤል ቩፐርታል<br><span style=\"font-size:13pt;font-family:sans-serif;font-weight:bold\">Eritreisch-Orthodoxe Tewahedo Kirche St.Rufael Wuppertal</span></div><div class=\"church-details\">ቤት ጽሕፈት ምሕደራ ሰበካ &bull; ቩፐርታል፥ ጀርመን<br><span style=\"color:#2b6cb0;font-weight:600\">ወግዓዊ ስርዓት ምሕደራ ቤተ ክርስቲያን (Offizielles Kirchenverwaltungssystem)</span></div></td></tr></table>",
+    "<table class=\"header-table\"><tr><td class=\"logo-cell\"><img src=\"" + churchLogoDataUri_() + "\" class=\"logo-img\" alt=\"Church Logo\"></td><td class=\"church-info-cell\"><div class=\"church-name\">ቤተ ክርስቲያን ኦርቶዶክስ ተዋሕዶ ኤርትራ ቅዱስ ሩፋኤል ሙንስተር<br><span style=\"font-size:13pt;font-family:sans-serif;font-weight:bold\">Eritreisch-Orthodoxe Tewahedo Kirche St.Rufael Münster</span></div><div class=\"church-details\">ቤት ጽሕፈት ምሕደራ ሰበካ &bull; ሙንስተር፥ ጀርመን<br><span style=\"color:#2b6cb0;font-weight:600\">ወግዓዊ ስርዓት ምሕደራ ቤተ ክርስቲያን (Offizielles Kirchenverwaltungssystem)</span></div></td></tr></table>",
     "<div class=\"title-container\"><h1 class=\"receipt-title\">" + escapeHtml_(titleDe) + "</h1><p class=\"receipt-title-sub\">" + escapeHtml_(titleTi) + "</p></div>",
     "<div class=\"info-row\"><div class=\"info-col info-col-left\"><h2 class=\"section-heading\">" + escapeHtml_(doc.metaTitle || "Beleginformationen") + " <span class=\"section-heading-sub\">/ " + escapeHtml_(doc.metaSubtitle || "ሓበሬታ") + "</span></h2><table class=\"data-table\">" + metaRows + "</table></div><div class=\"info-col info-col-right\"><h2 class=\"section-heading\">" + escapeHtml_(doc.partyTitle || "Person / Partei") + " <span class=\"section-heading-sub\">/ " + escapeHtml_(doc.partySubtitle || "ሰብ") + "</span></h2><table class=\"data-table\">" + partyRows + "</table></div></div>",
     "<div class=\"financial-highlight-box\"><div class=\"amount-cell\"><div class=\"amount-label\">" + escapeHtml_(doc.highlightLabel || "Betrag") + "</div><div class=\"amount-label-sub\">" + escapeHtml_(doc.highlightSubLabel || "መጠን") + "</div><div class=\"amount-value\">" + escapeHtml_(doc.highlightValue || "") + "</div></div><div class=\"payment-method-cell\"><span class=\"method-label-de\">" + escapeHtml_(doc.methodLabel || "Referenz") + "</span><span class=\"method-label-ti\">" + escapeHtml_(doc.methodSubLabel || "መወከሲ") + "</span><div class=\"method-badge\">" + escapeHtml_(doc.methodValue || "") + "</div></div></div>",
@@ -781,7 +781,7 @@ var PAYMENT_TEMPLATE_MALE =
   "\"ብጐይታ ዅሉ ሳዕ ተሐጐሱ፡ ደጊመ፤ ተሐጐሱ፡ እብል ኣሎኹ\"\n" +
   "ፊልጲ 4:4\n" +
   "\n" +
-  "⛪ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ቩፑርታል";
+  "⛪ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ሙንስተር";
 
 var PAYMENT_TEMPLATE_FEMALE =
   "ሰላም {MemberName}\n" +
@@ -800,7 +800,7 @@ var PAYMENT_TEMPLATE_FEMALE =
   "\"ብጐይታ ዅሉ ሳዕ ተሐጐሱ፡ ደጊመ፤ ተሐጐሱ፡ እብል ኣሎኹ\"\n" +
   "ፊልጲ 4:4\n" +
   "\n" +
-  "⛪ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ቩፑርታል";
+  "⛪ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ሙንስተር";
 
 var PAYMENT_TEMPLATE_NEUTRAL =
   "ሰላም {MemberName}\n" +
@@ -819,7 +819,7 @@ var PAYMENT_TEMPLATE_NEUTRAL =
   "\"ብጐይታ ዅሉ ሳዕ ተሐጐሱ፡ ደጊመ፤ ተሐጐሱ፡ እብል ኣሎኹ\"\n" +
   "ፊልጲ 4:4\n" +
   "\n" +
-  "⛪ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ቩፑርታል";
+  "⛪ ቤተ ክርስቲያን ቅዱስ ሩፋኤል ሙንስተር";
 
 function buildWhatsAppPaymentMessage_(gender, name, amountText, periodText, receiptId, receiptUrl) {
   const g = clean_(gender).toLowerCase();

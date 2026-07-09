@@ -872,18 +872,25 @@ function buildMemberDemographics_() {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Display-only translation for the WhatsApp message — does not touch the
+// stored month name (used elsewhere for MONTHS.indexOf lookups/logging).
+function germanMonthName_(month) {
+  const names = { January: "Januar", February: "Februar", March: "März", April: "April", May: "Mai", June: "Juni", July: "Juli", August: "August", September: "September", October: "Oktober", November: "November", December: "Dezember" };
+  return names[clean_(month)] || clean_(month);
+}
+
 function buildWhatsAppMonthlyReportUrl_(phone, data, reportUrl) {
   const digits = clean_(phone).replace(/\D/g, "");
   if (!digits) return "";
   const text = [
-    "Monthly financial report",
+    "Monatlicher Finanzbericht / ወርሓዊ ጸብጻብ ገንዘብ",
     CHURCH_SYSTEM_NAME,
-    "Period: " + data.month + " " + data.year,
-    "Income: " + euro_(data.selected.total),
-    "Expenses: " + euro_(data.selected.expenses),
-    "Net balance: " + euro_(data.selected.net),
-    "PDF report: " + reportUrl,
-    "Thank you.",
+    "Zeitraum: " + germanMonthName_(data.month) + " " + data.year,
+    "Einnahmen: " + euro_(data.selected.total),
+    "Ausgaben: " + euro_(data.selected.expenses),
+    "Nettosaldo: " + euro_(data.selected.net),
+    "PDF-Bericht: " + reportUrl,
+    "Vielen Dank.",
     "ኣምላኽ ዘውጻእካዮ ይተክኣልካ።"
   ].join("\n");
   return "https://wa.me/" + digits + "?text=" + encodeURIComponent(text);

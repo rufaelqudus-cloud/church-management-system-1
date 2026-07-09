@@ -54,7 +54,10 @@ function confirmAdminHandover(form) {
       Math.max(0, Number(summary.previousOutstanding || 0) + (expectedCash - actualCashHandedOver))
     .toFixed(2));
     const handoverId = nextId_("HND");
-    const pdfUrl = createHandoverPdf_(handoverId, admin, receiver, range, summary, notes, clean_(form && form.language) || "de");
+    // Handover PDFs always render in German + Tigrinya, regardless of the
+    // admin's own dashboard language — the document is for recipients who
+    // read German/Tigrinya, not for the admin generating it.
+    const pdfUrl = createHandoverPdf_(handoverId, admin, receiver, range, summary, notes, "de");
     const handoverNotes = [notes, "[AUTO_PENDING_HANDOVER_MODEL]", "[ADMIN_EXPECTED_HANDOVER]"].filter(Boolean).join(" ");
     ensureHandoverSheet_().appendRow([
       handoverId,
@@ -365,7 +368,7 @@ function handoverDiagnosticItem_(item, why, contributionAmount) {
 }
 
 function incomeBreakdown_(transactions) {
-  const order = ["Membership Fee", "Wedding (መርዓ)", "Baptism (ጥምቀት)", "ዕሽር", "ናይ ካርዲ ኣባልነት", "Savings / Deposit", "Other Service Fees"];
+  const order = ["Mitgliedsbeitrag", "Hochzeit (መርዓ)", "Taufe (ጥምቀት)", "ዕሽር", "ናይ ካርዲ ኣባልነት", "Ersparnis / Einzahlung", "Sonstige Gebühren"];
   const map = {};
   order.forEach(label => map[label] = { paymentType: label, count: 0, amount: 0 });
   (transactions || []).forEach(item => {
@@ -382,14 +385,31 @@ function incomeBreakdown_(transactions) {
 }
 
 function handoverPaymentTypeLabel_(item) {
-  if (item.source === "savings") return "Savings / Deposit";
-  if (item.paymentType === "Membership Fee") return "Membership Fee";
+  if (item.source === "savings") return "Ersparnis / Einzahlung";
+  if (item.paymentType === "Membership Fee") return "Mitgliedsbeitrag";
   const reason = clean_(item.reason);
-  if (reason === "Wedding") return "Wedding (መርዓ)";
-  if (reason === "Baptism") return "Baptism (ጥምቀት)";
+  if (reason === "Wedding") return "Hochzeit (መርዓ)";
+  if (reason === "Baptism") return "Taufe (ጥምቀት)";
   if (reason === "Tithe" || reason === "ዕሽር") return "ዕሽር";
   if (reason === "Membership Card" || reason === "ናይ ካርዲ ኣባልነት") return "ናይ ካርዲ ኣባልነት";
-  return reason && reason !== "Other" ? reason : "Other Service Fees";
+  return reason && reason !== "Other" ? reason : "Sonstige Gebühren";
+}
+
+// Display-only translation for the PDF — does not touch the stored payment
+// method value (used elsewhere for cash/bank totals) or any comparisons.
+function handoverMethodLabel_(method) {
+  const value = clean_(method);
+  if (value === "Cash") return "Barzahlung";
+  if (value === "Bank Transfer") return "Banküberweisung";
+  return value;
+}
+
+// Display-only translation for the PDF — does not touch summary.status,
+// which is stored as-is in the Handovers sheet and used for branching logic.
+function handoverStatusLabel_(status) {
+  const value = clean_(status);
+  if (value === "Submitted - Awaiting Overall Handover") return "Eingereicht - Wartet auf Gesamtübergabe";
+  return value;
 }
 
 function buildCurrentResponsibility_(admin, preparedSummary, preparedHistory) {
@@ -708,7 +728,10 @@ function confirmOverallHandover(form) {
     const overallId = nextId_("OVH");
     const meetingDate = form && form.meetingDate ? new Date(form.meetingDate) : new Date();
     const notes = clean_(form && form.notes);
-    const pdfUrl = createOverallHandoverPdf_(overallId, meetingDate, superAdmin, confirmed, notes, clean_(form && form.language) || "de");
+    // Handover PDFs always render in German + Tigrinya, regardless of the
+    // admin's own dashboard language — the document is for recipients who
+    // read German/Tigrinya, not for the admin generating it.
+    const pdfUrl = createOverallHandoverPdf_(overallId, meetingDate, superAdmin, confirmed, notes, "de");
     const sh = ensureOverallHandoverSheet_();
     confirmed.forEach(item => {
       sh.appendRow([
@@ -930,7 +953,7 @@ function createHandoverPdf_(handoverId, admin, receiver, range, summary, notes, 
   const status = balanced ? labels.balanced : labels.differenceDetected;
   const adminExpectedOnly = clean_(summary.status) === "Submitted - Awaiting Overall Handover";
   const handoverSummaryRows = adminExpectedOnly
-    ? [[labels.expectedCash, euro_(summary.expectedCash)], [labels.status, clean_(summary.status)]]
+    ? [[labels.expectedCash, euro_(summary.expectedCash)], [labels.status, handoverStatusLabel_(summary.status)]]
     : [[labels.expectedCash, euro_(summary.expectedCash)], [labels.actualCashHandedOver, euro_(summary.actualCashHandedOver)], [labels.difference, euro_(summary.difference)], [labels.status, status]];
   const incomeRows = (summary.incomeBreakdown || []).map(row => [row.paymentType, row.count, euro_(row.amount)]);
   if (incomeRows.length) incomeRows.push([labels.grandTotalIncome, "", euro_(grandTotal)]);
@@ -939,7 +962,7 @@ function createHandoverPdf_(handoverId, admin, receiver, range, summary, notes, 
     item.memberName || "-",
     handoverPaymentTypeLabel_(item),
     euro_(item.amount),
-    item.method,
+    handoverMethodLabel_(item.method),
     item.id
   ]);
   const expenseRows = (summary.expenses || []).map(item => [
@@ -1005,7 +1028,7 @@ function createOverallHandoverPdf_(overallId, meetingDate, superAdmin, summaries
     euro_(item.previousOutstanding),
     euro_(item.totalResponsibility),
     euro_(item.cashReceived || 0),
-    item.confirmationStatus || "",
+    item.confirmationStatus === "Partial" ? labels.partial : item.confirmationStatus === "Complete" ? labels.complete : (item.confirmationStatus || ""),
     euro_(item.remainingUnpaid || 0)
   ]);
   if (rows.length) rows.push([
@@ -1065,8 +1088,8 @@ function handoverPdfLabels_(language) {
     allPending: "All pending transactions",
     admin: "Admin", overallHandoverTitle: "Overall Church Money Handover Report", overallHandoverMeta: "Overall Handover", overallHandoverId: "Overall Handover ID", meetingDate: "Meeting Date", generatedDate: "Generated Date", meetingConfirmation: "Meeting Confirmation", superAdmin: "Super Admin", adminCount: "Admin Count", partial: "Partial", complete: "Complete", totalCashReceived: "Total Cash Received", remainingUnpaid: "Remaining Unpaid", summaryByAdmin: "Summary by Admin", membership: "Membership", service: "Service", materialSale: "Material Sale", otherIncome: "Other Income", cashExpenses: "Cash Expenses", bank: "Bank", currentExpectedCash: "Current Expected Cash", remainingOutstanding: "Remaining Outstanding", grandTotals: "Grand Totals", membershipIncome: "Membership Income", serviceIncome: "Service Income", materialSaleIncome: "Material Sale Income", expensesFromCash: "Expenses From Cash", actualCashReceived: "Actual Cash Received", signatures: "Signatures", superAdminSignature: "Super Admin Signature", churchStamp: "Church Stamp", notes: "Notes"
   };
-  if (lang === "de") return Object.assign({}, en, { title: "Kirchengeld-Übergabebericht (ጸብጻብ ምርኽኻብ)", date: "Datum", range: "Abgedeckter Zeitraum", generated: "Erstellt am", handedBy: "Übergeben von", receivedBy: "Empfangen von", status: "Status", incomeSummary: "Einnahmenübersicht", paymentType: "Zahlungsart", count: "Anzahl", amount: "Betrag", grandTotalIncome: "Gesamteinnahmen", financialSummary: "Finanzübersicht", totalCashCollected: "Gesammeltes Bargeld", totalBankTransfers: "Banküberweisungen", totalSavingsReceived: "Spar-/Einzahlungsbetrag", cashExpensesFromCollected: "Ausgaben aus eingesammeltem Bargeld", finalCashHandedOver: "Endgültig übergebenes Bargeld", responsibilitySummary: "Verantwortungsübersicht", previousOutstanding: "Vorheriger offener Betrag", newCollections: "Neue Sammlungen im Zeitraum", totalResponsibility: "Gesamtverantwortung", amountHandedOver: "Übergebener Betrag", outstandingRemaining: "Offen (noch nicht übergeben)", transactionDetails: "Transaktionsdetails", memberName: "Mitgliedsname", method: "Zahlungsmethode", receiptNumber: "Belegnummer", expenseDetails: "Ausgabendetails", expenseDate: "Ausgabedatum", category: "Kategorie", paidFromCollected: "Aus eingesammeltem Bargeld bezahlt", handoverSummary: "Übergabeübersicht", expectedCash: "Erwartetes Bargeld", actualCashHandedOver: "Tatsächlich übergebenes Bargeld", difference: "Differenz", balanced: "Ausgeglichen ✓", differenceDetected: "Differenz festgestellt ⚠", yes: "Ja", no: "Nein", noTransactions: "Keine Transaktionen", noExpenses: "Keine Ausgaben",
-    handoverId: "Übergabe-ID", people: "Beteiligte Parteien",
+  if (lang === "de") return Object.assign({}, en, { title: "Kirchenkasse Übergabebericht", date: "Datum", range: "Zeitraum", generated: "Erstellt am", handedBy: "Übergeben von", receivedBy: "Empfangen von", status: "Status", incomeSummary: "Einnahmenübersicht", paymentType: "Zahlungsart", count: "Anzahl", amount: "Betrag", grandTotalIncome: "Gesamteinnahmen", financialSummary: "Finanzübersicht", totalCashCollected: "Gesammeltes Bargeld", totalBankTransfers: "Banküberweisungen", totalSavingsReceived: "Spar-/Einzahlungsbetrag", cashExpensesFromCollected: "Ausgaben aus eingesammeltem Bargeld", finalCashHandedOver: "Endgültig übergebenes Bargeld", responsibilitySummary: "Verantwortungsübersicht", previousOutstanding: "Vorheriger offener Betrag", newCollections: "Neue Sammlungen im Zeitraum", totalResponsibility: "Gesamtverantwortung", amountHandedOver: "Übergebener Betrag", outstandingRemaining: "Offen (noch nicht übergeben)", transactionDetails: "Transaktionsdetails", memberName: "Mitgliedsname", method: "Zahlungsmethode", receiptNumber: "Belegnummer", expenseDetails: "Ausgabendetails", expenseDate: "Ausgabedatum", category: "Kategorie", paidFromCollected: "Aus eingesammeltem Bargeld bezahlt", handoverSummary: "Übergabeübersicht", expectedCash: "Erwarteter Kassenbestand", actualCashHandedOver: "Tatsächlich übergebenes Bargeld", difference: "Differenz", balanced: "Ausgeglichen ✓", differenceDetected: "Differenz festgestellt ⚠", yes: "Ja", no: "Nein", noTransactions: "Keine Transaktionen", noExpenses: "Keine Ausgaben",
+    handoverId: "Übergabe-ID", people: "Übergabepersonen",
     allPending: "Alle ausstehenden Transaktionen",
     admin: "Admin", overallHandoverTitle: "Gesamtübergabebericht", overallHandoverMeta: "Gesamtübergabe", overallHandoverId: "Gesamtübergabe-ID", meetingDate: "Sitzungsdatum", generatedDate: "Erstellt am", meetingConfirmation: "Sitzungsbestätigung", superAdmin: "Super-Admin", adminCount: "Anzahl Admins", partial: "Teilweise", complete: "Abgeschlossen", totalCashReceived: "Gesamt erhaltenes Bargeld", remainingUnpaid: "Verbleibend unbezahlt", summaryByAdmin: "Zusammenfassung nach Admin", membership: "Mitgliedschaft", service: "Dienstleistung", materialSale: "Materialverkauf", otherIncome: "Sonstige Einnahmen", cashExpenses: "Bargeldausgaben", bank: "Bank", currentExpectedCash: "Aktuell erwartetes Bargeld", remainingOutstanding: "Verbleibend offen", grandTotals: "Gesamtsummen", membershipIncome: "Mitgliedsbeiträge", serviceIncome: "Dienstleistungseinnahmen", materialSaleIncome: "Materialverkaufseinnahmen", expensesFromCash: "Ausgaben aus Bargeld", actualCashReceived: "Tatsächlich erhaltenes Bargeld", signatures: "Unterschriften", superAdminSignature: "Unterschrift Super-Admin", churchStamp: "Kirchenstempel", notes: "Bemerkungen" });
   if (lang === "ti") return Object.assign({}, en, { title: "Church Money Handover Report (ጸብጻብ ምርኽኻብ)", handoverId: "መለለዪ ምርኽኻብ", date: "ዕለት", range: "ዝሽፈን ግዜ", generated: "ዝተፈጥረሉ ዕለት", people: "ተረካቢን ዘረከበን", handedBy: "ዘረከበ", receivedBy: "ዝተቐበለ", status: "ኩነታት", incomeSummary: "ጽማቝ እቶት", paymentType: "ዓይነት ክፍሊት", count: "ብዝሒ", amount: "መጠን", grandTotalIncome: "ጠቕላላ እቶት", financialSummary: "ጽማቝ ገንዘብ", totalCashCollected: "ጠቕላላ ጥረ ገንዘብ", totalBankTransfers: "ጠቕላላ ባንክ", totalSavingsReceived: "ጠቕላላ ኣዋህልለለይ", cashExpensesFromCollected: "ካብ ዝተኣከበ ጥረ ገንዘብ ዝተኸፍለ ወጻኢ", finalCashHandedOver: "ዝተረከበ ጥረ ገንዘብ", responsibilitySummary: "ጽማቝ ሓላፍነት", previousOutstanding: "ቅድሚ ሕጂ ዝተረፈ", newCollections: "ሓድሽ ዝተኣከበ", totalResponsibility: "ጠቕላላ ሓላፍነት", amountHandedOver: "ዝተረከበ መጠን", outstandingRemaining: "ዝተረፈ ዘይተረከበ", transactionDetails: "ዝርዝር ክፍሊት", memberName: "ስም ኣባል", method: "ኣገባብ ክፍሊት", receiptNumber: "ቁጽሪ ቅብሊት", expenseDetails: "ዝርዝር ወጻኢ", expenseDate: "ዕለት ወጻኢ", category: "ዓይነት", paidFromCollected: "ካብ ዝተኣከበ ገንዘብ ተኸፊሉ", handoverSummary: "ጽማቝ ምርኽኻብ", expectedCash: "ዝጽበ ጥረ ገንዘብ", actualCashHandedOver: "ብሓቂ ዝተረከበ", difference: "ፍልልይ", balanced: "ተመዓራርዩ ✓", differenceDetected: "ፍልልይ ተረኺቡ ⚠", yes: "እወ", no: "ኣይፋል", noTransactions: "ክፍሊት የለን", noExpenses: "ወጻኢ የለን" });

@@ -9,7 +9,7 @@
 
 ## Overview
 
-First production release of the St. Michael Church Wuppertal membership and finance management system. Built as a Google Apps Script web application bound to a Google Sheet. Designed for church administrators to manage members, payments, savings, receipts, reporting, and archiving — entirely from a mobile-friendly web interface.
+First production release of the St.Rufael Church Münster membership and finance management system. Built as a Google Apps Script web application bound to a Google Sheet. Designed for church administrators to manage members, payments, savings, receipts, reporting, and archiving — entirely from a mobile-friendly web interface.
 
 ---
 

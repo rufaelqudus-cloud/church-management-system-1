@@ -1,4 +1,5 @@
 function resetAdminLogin() {
+  if (!requireSuperAdminForMenuAction_("Reset Main Admin Login")) return;
   const ui = SpreadsheetApp.getUi();
   const user = ui.prompt("Reset Main Admin Login", "Enter main admin username:", ui.ButtonSet.OK_CANCEL);
   if (user.getSelectedButton() !== ui.Button.OK) return;
@@ -48,13 +49,7 @@ function setAdminCredentials_(username, password) {
   ]);
   ensureAdminUsersTable_();
   upsertAdminUser_(cleanUser, cleanPass, "Active");
-  try {
-    sh.hideSheet();
-    const protection = sh.protect().setDescription("Protected admin login hash");
-    protection.setWarningOnly(true);
-  } catch (err) {
-    // Protection is best-effort; the sheet is hidden and only the password hash is stored.
-  }
+  secureConfigSheetProtection_(sh);
 }
 
 function ensureAdminUsersTable_() {
@@ -83,16 +78,24 @@ function ensureAdminUsersTable_() {
   }
   if (changed) {
     sh.getRange("A10:D" + Math.max(sh.getLastRow(), 11)).setFontColor("#ffffff").setBackground("#ffffff");
-    try {
-      sh.hideSheet();
-      const protections = sh.getProtections(SpreadsheetApp.ProtectionType.SHEET);
-      if (!protections.length) {
-        const protection = sh.protect().setDescription("Protected admin configuration");
-        protection.setWarningOnly(true);
-      }
-    } catch (err) {
-      // Hidden configuration plus hashed passwords are the primary protection here.
-    }
+  }
+  secureConfigSheetProtection_(sh);
+}
+
+// _System Config holds admin login hashes and fee history — the most
+// sensitive sheet in the system. Re-asserted on every call (login, admin
+// reset, onOpen) so it self-heals to a hard lock even if something removed
+// it. Reuses the same hard-protection editor list as every other CMS
+// protection (Super Admins) — deliberately NOT prefixed "CMS:" so it is
+// exempt from the "Allow Manual Editing for 15 Minutes" removal step.
+function secureConfigSheetProtection_(sh) {
+  try {
+    sh.hideSheet();
+    const existing = sh.getProtections(SpreadsheetApp.ProtectionType.SHEET);
+    const protection = existing.length ? existing[0] : sh.protect().setDescription("Protected admin configuration");
+    lockCmsProtection_(protection);
+  } catch (err) {
+    recordSystemError_(err, "secureConfigSheetProtection_");
   }
 }
 
@@ -356,6 +359,35 @@ function requirePermission_(username, permission) {
   const session = adminSession_(username);
   if (!session.permissions[permission]) throw new Error("Your role does not allow this action.");
   return session;
+}
+
+// Gate for sensitive Sheets-menu actions (protection controls, backups,
+// admin reset) that have no logged-in session to check — the menu just
+// calls the handler function directly with no arguments. Prompts for real
+// username + password (verified against the hashed admin table, same check
+// used by login) and requires the Super Admin role, in addition to whatever
+// Google Sheets file-sharing access got the user to the menu at all.
+// Returns the verified username, or null if cancelled/denied — in which
+// case an alert has already been shown and the caller should just return.
+function requireSuperAdminForMenuAction_(actionLabel) {
+  const ui = SpreadsheetApp.getUi();
+  const userResp = ui.prompt(actionLabel, "Super Admin verification required.\n\nEnter your admin username:", ui.ButtonSet.OK_CANCEL);
+  if (userResp.getSelectedButton() !== ui.Button.OK) return null;
+  const username = clean_(userResp.getResponseText());
+  const passResp = ui.prompt(actionLabel, "Enter your password:", ui.ButtonSet.OK_CANCEL);
+  if (passResp.getSelectedButton() !== ui.Button.OK) return null;
+  const password = passResp.getResponseText();
+  if (!adminUserMatches_(username, password)) {
+    ui.alert("Access denied. Incorrect username or password.");
+    return null;
+  }
+  try {
+    requirePermission_(username, "manageSettings");
+  } catch (err) {
+    ui.alert("Access denied. This action is only available to Super Admins.");
+    return null;
+  }
+  return username;
 }
 
 function requireAnyPermission_(username, permissions) {

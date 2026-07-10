@@ -308,15 +308,15 @@ function addChurchManagementMenu_() {
     .addItem("Refresh Yearly Unpaid Members", "refreshYearlyUnpaidMembersSheet")
     .addSeparator()
     .addItem("Add / Update Admin", "addOrUpdateAdminUser")
-    .addItem("Reset Main Admin Login", "resetAdminLogin")
+    .addItem("Reset Main Admin Login (Super Admin)", "resetAdminLogin")
     .addItem("Open Admin Management", "openAdminManagement")
     .addSeparator()
-    .addItem("Create Backup Now", "createBackupNow")
-    .addItem("Enable Daily Backup", "installDailyBackup")
+    .addItem("Create Backup Now (Super Admin)", "createBackupNow")
+    .addItem("Enable Daily Backup (Super Admin)", "installDailyBackup")
     .addSeparator()
-    .addItem("Apply Data Protection", "applyCmsProtections")
-    .addItem("Allow Manual Editing for 15 Minutes", "temporarilyAllowManualEdits")
-    .addItem("Lock Manual Editing Again", "blockManualEdits")
+    .addItem("Apply Data Protection (Super Admin)", "applyCmsProtections")
+    .addItem("Allow Manual Editing for 15 Minutes (Super Admin)", "temporarilyAllowManualEdits")
+    .addItem("Lock Manual Editing Again (Super Admin)", "blockManualEdits")
     .addToUi();
 }
 
@@ -388,6 +388,7 @@ function manualEditsAllowed_() {
 }
 
 function temporarilyAllowManualEdits() {
+  if (!requireSuperAdminForMenuAction_("Allow Manual Editing for 15 Minutes")) return;
   PropertiesService.getDocumentProperties().setProperty(
     "CMS_ALLOW_MANUAL_EDITS_UNTIL",
     String(Date.now() + 15 * 60 * 1000)
@@ -397,11 +398,16 @@ function temporarilyAllowManualEdits() {
 }
 
 function blockManualEdits() {
+  if (!requireSuperAdminForMenuAction_("Lock Manual Editing Again")) return;
   PropertiesService.getDocumentProperties().deleteProperty("CMS_ALLOW_MANUAL_EDITS_UNTIL");
-  applyCmsProtections();
+  // Calls the silent variant directly (not applyCmsProtections()) so this
+  // action only prompts for Super Admin verification once, not twice.
+  applyCmsProtectionsSilent_();
+  SpreadsheetApp.getUi().alert("Data protection is active. Visible tabs are locked, so admins should use the sidebar or mobile web app for changes.");
 }
 
 function applyCmsProtections() {
+  if (!requireSuperAdminForMenuAction_("Apply Data Protection")) return;
   const ss = ss_();
   removeCmsProtections_(ss);
   MANUAL_EDIT_GUARDED_SHEETS.forEach(name => {
@@ -471,6 +477,7 @@ function applyCmsProtectionsSilent_() {
 }
 
 function createBackupNow() {
+  if (!requireSuperAdminForMenuAction_("Create Backup Now")) return;
   const ui = SpreadsheetApp.getUi();
   const backup = createSystemBackup_("Manual");
   ui.alert(
@@ -481,6 +488,7 @@ function createBackupNow() {
 }
 
 function installDailyBackup() {
+  if (!requireSuperAdminForMenuAction_("Enable Daily Backup")) return;
   installDailyBackupSilently_();
   SpreadsheetApp.getUi().alert("Daily backup is active. A backup will be created every night around 02:00 Germany time.");
 }
